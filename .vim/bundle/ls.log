@@ -1,14 +1,3 @@
-[0m[01;35mA[0m
-[01;35mclosetag[0m
-[01;35mconque-term[0m
-[01;35mformat-vim[0m
-[01;35mgrep[0m
-[01;35mjsbeautify[0m
-ls.log
-[01;35mmatrix[0m
-[01;35mminibufexpl.vim[0m
-[01;35mnerdtree[0m
-[01;35msnipmate.vim[0m
-[01;35msupertab[0m
-[01;35mtaglist[0m
-[01;35mzencoding-vim[0m
+A	     format-vim  ls.log		  nerdtree	taglist
+closetag     grep	 matrix		  snipmate.vim	zencoding-vim
+conque-term  jsbeautify  minibufexpl.vim  supertab
