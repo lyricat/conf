@@ -1,6 +1,31 @@
-" General settings
+" Key binding
+" <F1>: <ESC>
+" <F2>: Grep
+" <F3>: Toggle NERDTree
+" <F4>: Toggle Quickview
+" <F5>: Toggle Tlist
+" <C-F5>: make/run
+" <F6>: Shell
+" <F7>: Fold/Un-Fold
+" tn/tp: next buffer, prev buffer
+" wh,wj,wk,wl: window nav
+" gp: format chinese paragraph
+" <leader>ff: JSBeautify
+" <C-_>: close matching open tag
+" <C-y>,: Expand Abbreviation
+"
+" Commands and Functions
+" :call StripTrailingWhite():  remove all trailing white spaces.
+" :Matrix: Matrix
 
+" General settings
+set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
+if has("win32")
+    set termencoding=cp936
+    language messages zh_CN.UTF-8
+endif
+
 set nocp
 set ru
 set cin
@@ -21,15 +46,16 @@ set softtabstop=4
 set et
 set smarttab
 " tab settings for different file types
-autocmd FileType javascript setlocal et sta sw=4 sts=4
-autocmd FileType python setlocal et sta sw=4 sts=4
-autocmd FileType html setlocal et sta sw=2 sts=2
-autocmd FileType go setlocal et sta sw=4 sts=4
+autocmd FileType javascript setlocal et sta sw=4 ts=4 sts=4
+autocmd FileType python setlocal et sta sw=4 ts=4 sts=4
+autocmd FileType html setlocal et sta sw=2 ts=2 sts=2
+autocmd FileType css setlocal et sta sw=2 ts=2 sts=2
+autocmd FileType go setlocal et sta sw=4 ts=4 sts=4
 
 " code fold
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
-map <F3> za
+map <F7> za
 
 " show line number
 set number
@@ -68,8 +94,6 @@ set mouse=a         "控制台启用鼠标
 
 set nocompatible
 
-" Set fileencoding priority
-set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 
 highlight Pmenu guibg=#6311b0 
 highlight PmenuSel guibg=#bac2ff gui=bold guifg=#000000
@@ -109,6 +133,11 @@ map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
 
 " MiniBuf Explorer
 let g:miniBufExplMapCTabSwitchBufs = 1
+noremap tn <ESC>:MBEbn<CR>
+noremap tp <ESC>:MBEbp<CR>
+
+" NERDTree 
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " Grep 
 nnoremap <silent> <F2> :Grep<CR>
@@ -117,13 +146,11 @@ nnoremap <silent> <F2> :Grep<CR>
 nnoremap <silent> <F6> :ConqueTerm zsh <CR>
 
 " Tlist
-let Tlist_Use_Right_Window=1
+let Tlist_Use_Left_Window=1
 let Tlist_File_Fold_Auto_Close=1
 " use F5 to Switch on/off TagList
-nnoremap <silent> <F5> :TlistToggle<CR>
 let Tlist_Show_One_File = 1 " Displaying tags for only one file~
 let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
-let Tlist_Use_Right_Window = 1 " split to the right side of the screen
 let Tlist_Sort_Type = "order" " sort by order or name
 let Tlist_Display_Prototype = 0 " do not show prototypes and not tags in the taglist window.
 let Tlist_Compart_Format = 1 " Remove extra information and blank lines from the taglist window.
@@ -131,8 +158,9 @@ let Tlist_GainFocus_On_ToggleOpen = 1 " Jump to taglist window on open.
 let Tlist_Display_Tag_Scope = 1 " Show tag scope next to the tag name.
 "let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is selected.
 let Tlist_Enable_Fold_Column = 0 " Don't Show the fold indicator column in the taglist window.
-let Tlist_WinWidth = 40
+let Tlist_WinWidth = 30
 let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function'
+nnoremap <silent> <F5> :Tlist<CR>
 
 " Snippets
 let g:snippetsEmu_key = "<C-s>"
@@ -144,11 +172,10 @@ let g:user_zen_settings = {'indentation' : '  '}
 map <leader>a <ESC>:A<CR>
 
 "Super Tab
-let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-
-"python calltips
-autocmd FileType python setlocal iskeyword+=.
+let g:SuperTabDefaultCompletionType = "<c-p>"
+let g:SuperTabCompletionContexts = ['s:ContextText']
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 " == Plugins settings done ==
 
@@ -181,6 +208,23 @@ map <F4> <ESC>:call ToggleQF() <CR>
 set statusline=%F%m%r%h%w\ [%{&ff}]\ [%Y]\ [ASC:\%03.3b]\ [%p%%]\ [LEN=%L] 
 set laststatus=2 
 
+" omno complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType c set omnifunc=ccomplete#Complete
+set completeopt+=longest
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" remove trailing whitespace
+function! StripTrailingWhite()
+    let l:winview = winsaveview()
+    silent! %s/\s\+$//
+    call winrestview(l:winview)
+endfunction
+
 " Platform dependent settings
 if (has("gui_running"))
     " GUI
@@ -193,12 +237,16 @@ else
     colo xterm16
 endif
 
+" for Windows
+if has("win32")
+    set guifont=Courier_New:h10:cANSI
+    set guifont=Monaco:h10:cANSI
+    set guifont=Consolas:h10:cANSI
+endif
+
 if has("autocmd")
     "回到上次文件打开所在行
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
-    "自动检测文件类型，并载入相关的规则文件
-    filetype plugin on
-    filetype indent on
 endif
 
