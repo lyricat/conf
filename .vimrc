@@ -214,7 +214,7 @@ set laststatus=2
 noremap <C-t> <ESC>:tabnew<CR>
 noremap tt <ESC>:tabnew<CR>
 noremap tc <ESC>:tabclose<CR>
-noremap tn <ESC>:tabN<CR>
+noremap tn <ESC>:tabnext<CR>
 noremap tp <ESC>:tabp<CR>
 
 " omno complete
