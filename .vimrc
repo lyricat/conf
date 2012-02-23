@@ -7,7 +7,11 @@
 " <C-F5>: make/run
 " <F6>: Shell
 " <F7>: Fold/Un-Fold
+" tt/<C-t>: create new tab
+" tc: close current tab
 " tn/tp: next buffer, prev buffer
+" tn/tp: next tab, prev tab
+" {N}gt: goto the Nth tab
 " wh,wj,wk,wl: window nav
 " gp: format chinese paragraph
 " <leader>ff: JSBeautify
@@ -131,11 +135,6 @@ map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
 
 " == Plugins settings ==
 
-" MiniBuf Explorer
-let g:miniBufExplMapCTabSwitchBufs = 1
-noremap tn <ESC>:MBEbn<CR>
-noremap tp <ESC>:MBEbp<CR>
-
 " NERDTree 
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
@@ -208,6 +207,13 @@ map <F4> <ESC>:call ToggleQF() <CR>
 set statusline=%F%m%r%h%w\ [%{&ff}]\ [%Y]\ [ASC:\%03.3b]\ [%p%%]\ [LEN=%L] 
 set laststatus=2 
 
+" Tab control
+noremap <C-t> <ESC>:tabnew<CR>
+noremap tt <ESC>:tabnew<CR>
+noremap tc <ESC>:tabclose<CR>
+noremap tn <ESC>:tabN<CR>
+noremap tp <ESC>:tabp<CR>
+
 " omno complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -245,7 +251,6 @@ if has("win32")
 endif
 
 if has("autocmd")
-    "回到上次文件打开所在行
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
 endif
