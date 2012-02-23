@@ -98,7 +98,6 @@ set mouse=a         "控制台启用鼠标
 
 set nocompatible
 
-
 highlight Pmenu guibg=#6311b0 
 highlight PmenuSel guibg=#bac2ff gui=bold guifg=#000000
 
@@ -143,6 +142,10 @@ nnoremap <silent> <F2> :Grep<CR>
 
 " ConqueTerm
 nnoremap <silent> <F6> :ConqueTerm zsh <CR>
+
+" FuzzyFinder
+nmap ff <ESC>:FufFile<CR>
+nmap fb <ESC>:FufBuffer<CR>
 
 " Tlist
 let Tlist_Use_Left_Window=1
