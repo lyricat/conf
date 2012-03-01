@@ -46,15 +46,15 @@ filetype plugin on
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-" expand tab & smarttab
-set et
-set smarttab
 " tab settings for different file types
-autocmd FileType javascript setlocal et sta sw=4 ts=4 sts=4
-autocmd FileType python setlocal et sta sw=4 ts=4 sts=4
-autocmd FileType html setlocal et sta sw=2 ts=2 sts=2
-autocmd FileType css setlocal et sta sw=2 ts=2 sts=2
-autocmd FileType go setlocal et sta sw=4 ts=4 sts=4
+" and 
+" display TAB character as <+++ for some type.
+"set list
+"set list listchars=tab:<+
+autocmd FileType python,javascript,c setlocal et sta sw=4 ts=4 sts=4 list listchars=tab:<+
+autocmd FileType html,css setlocal sw=2 ts=2 sts=2
+autocmd FileType css setlocal sta sw=2 ts=2 sts=2 nocindent
+autocmd FileType go setlocal sta sw=4 ts=4 sts=4
 
 " code fold
 autocmd FileType python setlocal foldmethod=indent
@@ -63,9 +63,6 @@ map <F7> za
 
 " show line number
 set number
-" display TAB character as <+++
-set list
-set list listchars=tab:<+
 
 " Show line Number
 " affect indent in C program
