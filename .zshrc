@@ -116,6 +116,9 @@ export PATH=${PATH}:/home/shellex/Apps/gae
 export PATH=${PATH}:/home/shellex/bin/
 export GOROOT=/home/shellex/Apps/go/
 
+export GOPATH=/home/shellex/Apps/go/bin/
+export GOPATH=${GOPATH}:/home/shellex/Dev/active/tattoo/
+
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 ## ディレクトリ名だけで cd

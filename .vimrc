@@ -38,22 +38,25 @@ set sm
 " auto indent
 set ai
 
+" for golang
+set rtp+=$GOROOT/misc/vim
+
 syntax on
 call pathogen#runtime_append_all_bundles()
 filetype plugin on
+filetype indent on
 
 " tab stop & shift width
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 " tab settings for different file types
 " and 
 " display TAB character as <+++ for some type.
 "set list
 "set list listchars=tab:<+
 autocmd FileType python,javascript,c setlocal et sta sw=4 ts=4 sts=4 list listchars=tab:<+
-autocmd FileType html,css setlocal sw=2 ts=2 sts=2
-autocmd FileType css setlocal sta sw=2 ts=2 sts=2 nocindent
+autocmd FileType html,css setlocal sw=2 ts=2 sts=0 si sta nocindent
 autocmd FileType go setlocal sta sw=4 ts=4 sts=4
 
 " code fold
@@ -144,22 +147,13 @@ nnoremap <silent> <F6> :ConqueTerm zsh <CR>
 nmap ff <ESC>:FufFile<CR>
 nmap fb <ESC>:FufBuffer<CR>
 
-" Tlist
-let Tlist_Use_Left_Window=1
-let Tlist_File_Fold_Auto_Close=1
-" use F5 to Switch on/off TagList
-let Tlist_Show_One_File = 1 " Displaying tags for only one file~
-let Tlist_Exist_OnlyWindow = 1 " if you are the last, kill yourself
-let Tlist_Sort_Type = "order" " sort by order or name
-let Tlist_Display_Prototype = 0 " do not show prototypes and not tags in the taglist window.
-let Tlist_Compart_Format = 1 " Remove extra information and blank lines from the taglist window.
-let Tlist_GainFocus_On_ToggleOpen = 1 " Jump to taglist window on open.
-let Tlist_Display_Tag_Scope = 1 " Show tag scope next to the tag name.
-"let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is selected.
-let Tlist_Enable_Fold_Column = 0 " Don't Show the fold indicator column in the taglist window.
-let Tlist_WinWidth = 30
-let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function'
-nnoremap <silent> <F5> :Tlist<CR>
+" Tagbar 
+let g:tagbar_autofocus = 1
+let g:tagbar_width = 30
+let g:tagbar_left = 1
+let g:tagbar_compact = 1
+let g:tagbar_singleclick = 1
+nmap <silent> <F5> :TagbarToggle<CR>
 
 " Snippets
 let g:snippetsEmu_key = "<C-s>"
@@ -246,8 +240,8 @@ endif
 " for Windows
 if has("win32")
     set guifont=Courier_New:h10:cANSI
-    set guifont=Monaco:h10:cANSI
     set guifont=Consolas:h10:cANSI
+    set guifont=Monaco:h12:cANSI
 endif
 
 if has("autocmd")
