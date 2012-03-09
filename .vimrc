@@ -158,9 +158,6 @@ nmap <silent> <F5> :TagbarToggle<CR>
 " Snippets
 let g:snippetsEmu_key = "<C-s>"
 
-" Zen coding 
-let g:user_zen_settings = {'indentation' : '  '}
-
 " A
 map <leader>a <ESC>:A<CR>
 
