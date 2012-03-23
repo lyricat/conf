@@ -3,10 +3,11 @@
 " <F2>: Grep
 " <F3>: Toggle NERDTree
 " <F4>: Toggle Quickview
-" <F5>: Toggle Tlist
-" <C-F5>: make/run
-" <F6>: Shell
-" <F7>: Fold/Un-Fold
+" <F5>: make/run
+" <F6>: alt make/run
+" <F7>: Toggle Tlist
+" <C-F7>: shell
+" <F8>: Fold/Un-Fold
 " tt/<C-t>: create new tab
 " tc: close current tab
 " tn/tp: next buffer, prev buffer
@@ -43,6 +44,7 @@ set rtp+=$GOROOT/misc/vim
 
 syntax on
 call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 filetype plugin on
 filetype indent on
 
@@ -62,7 +64,7 @@ autocmd FileType go setlocal sta sw=4 ts=4 sts=4
 " code fold
 autocmd FileType python setlocal foldmethod=indent
 set foldlevel=99
-map <F7> za
+map <F8> za
 
 " show line number
 set number
@@ -141,7 +143,7 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap <silent> <F2> :Grep<CR>
 
 " ConqueTerm
-nnoremap <silent> <F6> :ConqueTerm zsh <CR>
+nnoremap <silent> <C-F7> :ConqueTerm zsh <CR>
 
 " FuzzyFinder
 nmap ff <ESC>:FufFile<CR>
@@ -153,7 +155,7 @@ let g:tagbar_width = 30
 let g:tagbar_left = 1
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
-nmap <silent> <F5> :TagbarToggle<CR>
+nmap <silent> <F7> :TagbarToggle<CR>
 
 " Snippets
 let g:snippetsEmu_key = "<C-s>"
@@ -173,11 +175,16 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 map <leader>cs <ESC>:!cscope -Rbq<CR>
 map <leader>ct <ESC>:!ctag -R .<CR>
-autocmd FileType python map <C-F5> <ESC>:!python %:p<CR>
-autocmd FileType javascript map <C-F5> <ESC>:!js %:p<CR>
-autocmd FileType html map <C-F5> <ESC>:!google-chrome %:p<CR>
-autocmd FileType c map <C-F5> <ESC>:make<CR>
-autocmd FileType cpp map <C-F5> <ESC>:make<CR>
+autocmd FileType python map <F5> <ESC>:!python %:p<CR>
+autocmd FileType go map <F5> <ESC>:!go install 
+autocmd FileType javascript map <F5> <ESC>:!js %:p<CR>
+autocmd FileType html map <F5> <ESC>:!google-chrome %:p<CR>
+autocmd FileType c map <F5> <ESC>:make<CR>
+autocmd FileType cpp map <F5> <ESC>:make<CR>
+autocmd FileType coffee map <F5> <ESC>:CoffeeMake<CR>
+autocmd FileType less map <F5> <ESC>:!lessc %:p > %<.css <CR>
+
+autocmd FileType coffee map <F6> <ESC>:CoffeeCompile vertical<CR>
 
 " Quick Fix
 function! ToggleQF() 

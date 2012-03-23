@@ -102,22 +102,8 @@ export LSCOLORS=ExFxCxdxBxegedabagacad
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 export ZLS_COLORS=$LS_COLORS
 
-export EDITOR=vim
-
-export DEBEMAIL=5h3ll3x@gmail.com
-export DEBFULLNAME="Shellex Wai"
-
-export PATH=${PATH}:/usr/sbin/:/sbin/
-export PATH=${PATH}:/home/shellex/Apps/android-sdk/tools
-export PATH=${PATH}:/home/shellex/Apps/android-sdk/platform-tools
-export PATH=${PATH}:/home/shellex/Script/
-export PATH=${PATH}:/home/shellex/Apps/go/bin/
-export PATH=${PATH}:/home/shellex/Apps/gae
-export PATH=${PATH}:/home/shellex/bin/
-export GOROOT=/home/shellex/Apps/go/
-
-export GOPATH=/home/shellex/Apps/go/bin/
-export GOPATH=${GOPATH}:/home/shellex/Dev/active/tattoo/
+# export variables
+source ~/.exports
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
@@ -144,7 +130,7 @@ linux*)
 alias ls="ls --color"
 ;;
 esac
-source "/home/shellex/Static/alias"
+source ~/.alias
 
 ## 最後のスラッシュを自動的に削除しない
 setopt noautoremoveslash
