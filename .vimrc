@@ -58,11 +58,12 @@ set softtabstop=2
 "set list
 "set list listchars=tab:<+
 autocmd FileType python,javascript,c setlocal et sta sw=4 ts=4 sts=4 list listchars=tab:<+
+autocmd FileType coffee setlocal et sta sw=2 ts=2 sts=2 list listchars=tab:<+ nocindent
 autocmd FileType html,css setlocal sw=2 ts=2 sts=0 si sta nocindent
 autocmd FileType go setlocal sta sw=4 ts=4 sts=4
 
 " code fold
-autocmd FileType python setlocal foldmethod=indent
+autocmd FileType python,coffee setlocal foldmethod=indent
 set foldlevel=99
 map <F8> za
 
