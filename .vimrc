@@ -235,7 +235,7 @@ if (has("gui_running"))
     " GUI
     set guioptions=T
     set guioptions-=b
-		" need a display with more higher resolution to use Anonymous Pro.
+    " need a display with more higher resolution to use Anonymous Pro.
     " set guifont=Anonymous\ Pro\ 12
     set guifont=Monaco\ 11
     set lazyredraw
@@ -246,16 +246,18 @@ endif
 
 " for Windows
 if has("win32")
-    set guifont=Courier_New:h10:cANSI
-    set guifont=Consolas:h10:cANSI
-    set guifont=Monaco:h12:cANSI
+    " set guifont=Courier_New:h10:cANSI
+    " set guifont=Monaco:h12:cANSI
+    set guifont=Consolas:h13:cANSI
 else
-		let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-		let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    " for Konsole
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 if has("autocmd")
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
 endif
+set ff=unix
 

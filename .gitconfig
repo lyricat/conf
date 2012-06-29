@@ -1,14 +1,14 @@
 [user]
-	name = Shellex Wai\n
+	name = Shellex Wai
 	email = 5h3ll3x@gmail.com
 [core]
 	autocrlf = input
-	safecrlf = true
+	savecrlf = true
 [alias]
     co = checkout
     ci = commit
     st = status
     br = branch
-    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --color
     type = cat-file -t
     dump = cat-file -p

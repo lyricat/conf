@@ -1,11 +1,8 @@
 export LANG=en_US.UTF-8
-HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000
-SAVEHIST=100000
 
-xset b off
-xmodmap -e "keycode 67 = Escape"    # F1 -> Esc
-xmodmap -e "keycode 156 = F4"       # ThinkVantage -> F4 (Windows Picker)
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=1000
+SAVEHIST=1000
 
 ## 補完機能の強化
 autoload -U compinit
@@ -31,7 +28,7 @@ case ${UID} in
 esac
 
 ## コアダンプサイズを制限
-limit coredumpsize 102400
+## limit coredumpsize 102400
 
 ## 出力の文字列末尾に改行コードが無い場合でも表示
 unsetopt promptcr
@@ -102,8 +99,16 @@ export LSCOLORS=ExFxCxdxBxegedabagacad
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 export ZLS_COLORS=$LS_COLORS
 
-# export variables
+export EDITOR=vim
+
+export DEBEMAIL=5h3ll3x@gmail.com
+export DEBFULLNAME="Shellex Wai"
+
+
+export PATH=/usr/sbin/:/sbin/:${PATH}
+
 source ~/.exports
+
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
@@ -116,50 +121,11 @@ setopt auto_param_keys
 ## ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
 
-## スペルチェック
-setopt correct
-
 ## エイリアス
 setopt complete_aliases
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-alias ls="ls -G -w"
-;;
-linux*)
 alias ls="ls --color"
-;;
-esac
-source ~/.alias
 
-## 最後のスラッシュを自動的に削除しない
+
 setopt noautoremoveslash
-
-## 検索
-export TEXT_BROWSER=w3m
-
-function _space2p20
-{
-    echo $@ |sed -e "s/ /%20/g"
-}
-
-function _space2plus
-{
-    echo $@ | sed -e "s/ /+/g"
-}
-
-function google
-{
-    ${TEXT_BROWSER} "http://www.google.com/search?q="`_space2plus $@`"&hl=en"
-}
-
-function technorati
-{
-    ${TEXT_BROWSER} http://www.technorati.com/search/`_space2p20 $@`"?language=en"
-}
-
-function wikipedia
-{
-    ${TEXT_BROWSER} http://en.wikipedia.org/wiki/`_space2p20 $@`
-}
 
