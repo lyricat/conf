@@ -23,10 +23,16 @@
 " :call StripTrailingWhite():  remove all trailing white spaces.
 " :Matrix: Matrix
 
+if has('win32') || has('win64')
+    " Make windows use ~/.vim too, I don't want to use _vimfiles
+    set runtimepath^=~/.vim
+endif
 " General settings
+
 set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 set encoding=utf-8
-if has("win32")
+
+if has('win32') || has('win64')
     set termencoding=cp936
     language messages zh_CN.UTF-8
 endif
@@ -39,14 +45,12 @@ set sm
 " auto indent
 set ai
 
+map <F9> :se autoindent? smartindent? cindent? lisp? indentexpr? equalprg? paste? cpoptions?<CR>
+
 " for golang
 set rtp+=$GOROOT/misc/vim
 
 syntax on
-call pathogen#runtime_append_all_bundles()
-call pathogen#infect()
-filetype plugin on
-filetype indent on
 
 " tab stop & shift width
 set shiftwidth=2
@@ -61,6 +65,7 @@ autocmd FileType python,javascript,c setlocal et sta sw=4 ts=4 sts=4 list listch
 autocmd FileType coffee setlocal et sta sw=2 ts=2 sts=2 list listchars=tab:<+ nocindent
 autocmd FileType html,css setlocal sw=2 ts=2 sts=0 si sta nocindent
 autocmd FileType go setlocal sta sw=4 ts=4 sts=4
+autocmd FileType scheme setlocal ls=2 bs=2 et sw=2 ts=8 sts=2 tw=80 lisp syntax=scheme
 
 " code fold
 autocmd FileType python,coffee setlocal foldmethod=indent
@@ -150,6 +155,19 @@ nnoremap <silent> <C-F7> :ConqueTerm zsh <CR>
 nmap ff <ESC>:FufFile<CR>
 nmap fb <ESC>:FufBuffer<CR>
 
+" vim-indent-guides
+if (has("gui_running"))
+	let g:indent_guides_auto_colors = 0
+	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+	hi IndentGuidesOdd  guibg=red   ctermbg=3
+	hi IndentGuidesEven guibg=green ctermbg=4	
+else
+	set background=dark
+	hi IndentGuidesOdd  ctermbg=black
+	hi IndentGuidesEven ctermbg=darkgrey	
+endif
+
 " Tagbar 
 let g:tagbar_autofocus = 1
 let g:tagbar_width = 30
@@ -184,8 +202,9 @@ autocmd FileType c map <F5> <ESC>:make<CR>
 autocmd FileType cpp map <F5> <ESC>:make<CR>
 autocmd FileType coffee map <F5> <ESC>:CoffeeMake<CR>
 autocmd FileType less map <F5> <ESC>:!lessc %:p > %<.css <CR>
-
+autocmd FileType scheme map <F5> <ESC>:!racket -r %:p<CR>
 autocmd FileType coffee map <F6> <ESC>:CoffeeCompile vertical<CR>
+
 
 " Quick Fix
 function! ToggleQF() 
@@ -223,6 +242,9 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 set completeopt+=longest
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
+" Powerline
+let g:Powerline_symbols = 'fancy'
+
 " remove trailing whitespace
 function! StripTrailingWhite()
     let l:winview = winsaveview()
@@ -237,27 +259,56 @@ if (has("gui_running"))
     set guioptions-=b
     " need a display with more higher resolution to use Anonymous Pro.
     " set guifont=Anonymous\ Pro\ 12
-    set guifont=Monaco\ 11
+		" for Windows
+		if has('win32') || has('win64')
+			" set guifont=Consolas:h13:cANSI
+			" set guifont=Anonymous\ Pro\ for\ Powerline:h13
+			set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11
+		else
+			set guifont=Monaco\ 12
+			" for Konsole
+			let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+			let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+		endif
     set lazyredraw
     colo vividchalk
 else
     colo xterm16
 endif
 
-" for Windows
-if has("win32")
-    " set guifont=Courier_New:h10:cANSI
-    " set guifont=Monaco:h12:cANSI
-    set guifont=Consolas:h13:cANSI
-else
-    " for Konsole
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
 
 if has("autocmd")
     au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
 endif
 set ff=unix
+
+" Vundle ====
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+ " let Vundle manage Vundle
+ " required! 
+Bundle 'gmarik/vundle'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'groenewege/vim-less'
+Bundle 'tpope/vim-markdown'
+Bundle 'mattn/zencoding-vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'majutsushi/tagbar'
+Bundle 'Lokaltog/vim-powerline'
+
+ " vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'a.vim'
+Bundle 'closetag.vim'
+Bundle 'grep.vim'
+Bundle 'matrix.vim'
+Bundle 'SuperTab'
+
+filetype plugin indent on     " required!
+
 
