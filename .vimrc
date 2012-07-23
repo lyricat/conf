@@ -194,16 +194,16 @@ let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 map <leader>cs <ESC>:!cscope -Rbq<CR>
 map <leader>ct <ESC>:!ctag -R .<CR>
-autocmd FileType python map <F5> <ESC>:!python %:p<CR>
-autocmd FileType go map <F5> <ESC>:!go install 
-autocmd FileType javascript map <F5> <ESC>:!js %:p<CR>
-autocmd FileType html map <F5> <ESC>:!google-chrome %:p<CR>
-autocmd FileType c map <F5> <ESC>:make<CR>
-autocmd FileType cpp map <F5> <ESC>:make<CR>
-autocmd FileType coffee map <F5> <ESC>:CoffeeMake<CR>
-autocmd FileType less map <F5> <ESC>:!lessc %:p > %<.css <CR>
-autocmd FileType scheme map <F5> <ESC>:!racket -r %:p<CR>
-autocmd FileType coffee map <F6> <ESC>:CoffeeCompile vertical<CR>
+autocmd FileType python map <buffer> <F5> <ESC>:!python %:p<CR>
+autocmd FileType go map <buffer> <F5> <ESC>:!go install 
+autocmd FileType javascript map <buffer> <F5> <ESC>:!js %:p<CR>
+autocmd FileType html map <buffer> <F5> <ESC>:!google-chrome %:p<CR>
+autocmd FileType c map <buffer> <F5> <ESC>:make<CR>
+autocmd FileType cpp map <buffer> <F5> <ESC>:make<CR>
+autocmd FileType coffee map <buffer> <F5> <ESC>:CoffeeMake<CR>
+autocmd FileType less map <buffer> <F5> <ESC>:!lessc %:p > %<.css <CR>
+autocmd FileType scheme map <buffer> <F5> <ESC>:!racket -r %:p<CR>
+autocmd FileType coffee map <buffer> <F6> <ESC>:CoffeeCompile vertical<CR>
 
 
 " Quick Fix
@@ -222,7 +222,6 @@ endfunc
 map <F4> <ESC>:call ToggleQF() <CR>
 
 " Status line
-set statusline=%F%m%r%h%w\ [%{&ff}]\ [%Y]\ [ASC:\%03.3b]\ [%p%%]\ [LEN=%L] 
 set laststatus=2 
 
 " Tab control
@@ -299,10 +298,12 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'skammer/vim-css-color'
+Bundle 'vim-scripts/L9'
+Bundle 'vim-scripts/FuzzyFinder'
+Bundle 'vim-scripts/vim-coffee-script'
 
  " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
 Bundle 'a.vim'
 Bundle 'closetag.vim'
 Bundle 'grep.vim'
