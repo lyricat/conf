@@ -156,12 +156,10 @@ nmap ff <ESC>:FufFile<CR>
 nmap fb <ESC>:FufBuffer<CR>
 
 " vim-indent-guides
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 1
 if (has("gui_running"))
-	let g:indent_guides_auto_colors = 0
-	autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
-	autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-	hi IndentGuidesOdd  guibg=red   ctermbg=3
-	hi IndentGuidesEven guibg=green ctermbg=4	
 else
 	set background=dark
 	hi IndentGuidesOdd  ctermbg=black
