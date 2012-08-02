@@ -157,7 +157,6 @@ nmap fb <ESC>:FufBuffer<CR>
 
 " vim-indent-guides
 let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 1
 if (has("gui_running"))
 else
@@ -242,6 +241,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " Powerline
 let g:Powerline_symbols = 'fancy'
 
+" Number.vim
+nnoremap <C-F3> :NumbersToggle<CR>
+
 " remove trailing whitespace
 function! StripTrailingWhite()
     let l:winview = winsaveview()
@@ -297,6 +299,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'majutsushi/tagbar'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'skammer/vim-css-color'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'vim-scripts/L9'
 Bundle 'vim-scripts/FuzzyFinder'
 Bundle 'vim-scripts/vim-coffee-script'
