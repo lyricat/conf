@@ -4,6 +4,8 @@ HISTFILE=$HOME/.zsh-history
 HISTSIZE=1000
 SAVEHIST=1000
 
+source ~/.env
+
 ## 補完機能の強化
 autoload -U compinit
 compinit
